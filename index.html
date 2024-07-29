@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    
+    <script> document.addEventListener('DOMContentLoaded', () => {
+           
+        });
+        </script>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <form onsubmit="event.preventDefault(); addTodo();">
+        <input type="text" id="gorev" required>
+        <br>
+        <button type="submit">Ekle</button>
+    </form>
+    
+    <ul id="taskList"></ul>
+
+    <script>
+       
+       document.addEventListener('DOMContentLoaded', () => {
+           cagir();
+        });
+        async function cagir() {
+            try {
+                const response = await fetch("http://localhost:3000/");
+                const data = await response.json();
+                
+                    // console.log(data);
+
+                const listElement = document.getElementById("taskList");
+                
+                if (Array.isArray(data.payload)) {
+                    listElement.innerHTML = ''; 
+
+                    data.payload.forEach((item) => {
+                        listElement.innerHTML += `<li>${item.gorev}
+                            <button onclick="deleteTodo('${item.id}')" id="${item}">X</button>
+                            <button onclick="updateTodo('${item.id}')" id="${item}">Düzenle</button>
+                            </li>`;
+                    });
+                } else {
+                }
+            } catch (err) {
+                alert('Bir hata oluştu: ' + err.message);
+                console.error(err);
+            }
+        }
+
+        async function addTodo() {
+            const gorev = document.getElementById('gorev').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/addList', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ gorev }),
+                });
+
+                if (response.ok) {
+                    document.getElementById('gorev').value = '';
+                    cagir(); 
+                } else {
+                    alert('Hata: To-do eklenemedi.');
+                }
+            } catch (error) {
+                console.error('Hata:', error);
+                alert('Bir hata oluştu.');
+            }
+        }
+
+        async function deleteTodo(id) {
+            try {
+                const response = await fetch(`http://localhost:3000/deleteList/${id}`, {
+                    method: 'DELETE',
+                });
+                if (response.ok) {
+                    cagir(); 
+                } else {
+                    alert('Hata: To-do silinemedi.');
+                }
+            } catch (error) {
+                console.error('Hata:', error);
+                alert('Bir hata oluştu.');
+            }
+        }
+        
+
+        async function updateTodo(id) {
+            const gorev = document.getElementById('gorev').value;
+            try {
+                const response = await fetch(`http://localhost:3000/updateList/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ gorev }),
+                });
+                if (response.ok) {
+                    cagir(); 
+                } else {
+                    alert('Hata: To-do güncellenemedi.');
+                }
+            } catch (error) {
+                console.error('Hata:', error);
+                alert('Bir hata oluştu.');
+            }
+        }
+
+
+    </script>
+</body>
+</html>
