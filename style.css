@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+body{
+    background: linear-gradient(135deg, #153677, #4e085f );
+    width: 100%;
+    min-height: 100vh;
+    padding: 10px;
+}
+.todo{
+    background-color: aliceblue;
+    max-width: 540px;
+    margin: 100px auto 20px;
+    width: 100%;
+    padding: 40px 30px 70px;
+    border-radius: 12px;
+}
+.todo h1{
+    color: #002765;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.todofrm{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #edeef0;
+    border-radius: 30px;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+form{
+    display: flex;
+    width: 100%;
+}
+input{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+}
+.todofrm button{
+    border: none;
+    outline: none;
+    padding: 16px 50px;
+    background: #ff5945;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+}
+ul li{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 0px;
+    user-select: none;
+}
+ul li button{
+    float: right;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    transition-duration:  0.3s;
+    font-size: 18px;
+}
+ul li button:hover{
+    color: #ff5945;
+    background: #edeef0;
+}
